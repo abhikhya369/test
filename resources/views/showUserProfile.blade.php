@@ -138,7 +138,7 @@
           </a>
         </li>
 
-        <!-- Drop Down For LogOut Copied From app.blade.php by Vk-->
+        <!-- Drop Down For LogOut Copied From app.blade.php by Vk echo route('post.show', ['post' => 1]);  -->
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre style=" margin-right: 25px;">
@@ -146,7 +146,7 @@
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a href="{{ url('user'.'/'.$users->id)}}"
+              <a href="{{ url('user'.'/'.Auth::user()->id)}}"
               >
               Profile
             </a>
@@ -155,7 +155,7 @@
             <a href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
-            Logout    
+            Logout
           </a>
 
 
@@ -185,7 +185,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="{{asset("/admin-lte/dist/img/user2-160x160.jpg")}}" class="img-circle elevation-2" alt="User Image">
+        <img src="/uploads/avatar/{{Auth::user()->avatar}}" class="img-circle elevation-2" height="26px" width="34px" alt="User Image">
       </div>
       <div class="info">
         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -235,10 +235,11 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <img src="/uploads/avatar/{{$users->avatar}}" style="width: 150px; height: 150px;float: left;border-radius: 50%;border-radius: 50%;margin-right: 25px;">
-              <h1 style="margin-top: 30px;">{{$users->name}}'s</h1>
+              <!--<img src="/uploads/avatar/{{Auth::user()->id}}" style="width: 150px; height: 150px;float: left;border-radius: 50%;border-radius: 50%;margin-right: 25px;">-->
+              <img src="/uploads/avatar/{{Auth::user()->avatar}}" style="width: 150px; height: 150px;float: left;border-radius: 50%;border-radius: 50%;margin-right: 25px;">
+              <h1 style="margin-top: 30px;">{{Auth::user()->name}}'s</h1>
               <h2>Profile</h2>
-              <form>
+              <form enctype="multipart/form-data" method="POST" action="/userUpload" >
                 <label>User Profile Image Upload</label>
                 <input type="file" name="avatar">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -270,7 +271,7 @@
                   <div class="card-header">
 
 
-                    <h3 class="card-title">{{$users->name}}</h3>
+                 <h3 class="card-title"><br></h3> 
                   </div>
                   <!-- /.card-header -->
                   <!-- form start -->
@@ -281,19 +282,17 @@
 
                       <div class="col-md-8 col-md-offset-2">
                         <div class="panel panel-default">
-                          <div class="panel-heading">User Profile</div>
+                          <div class="panel-heading"></div>
 
                           <div class="panel-body">
                             <!--<form class="form-horizontal" method="POST" action="{{ route('register') }}">-->
-                              <form class="form-horizontal" method="POST" action="" >
+                              <form class="form-horizontal" method="POST" action="/userUpload" >
                                   {{ csrf_field() }}
-                                  @method('PUT')
-
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                   <label for="name" class="col-md-4 control-label">Name</label>
 
                                   <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{$users->name}}" required autofocus>
+                                    <input id="name" type="text" class="form-control" name="name" value="{{Auth::user()->name}}" required autofocus>
                                   </div>
                                 </div>
 
@@ -301,7 +300,7 @@
                                   <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                                   <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="{{$users->email}}" required>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{Auth::user()->email}}" required>
                                   </div>
                                 </div>
                                 <div class="form-group">

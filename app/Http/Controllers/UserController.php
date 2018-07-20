@@ -65,6 +65,27 @@ class UserController extends Controller
         //
   }
 
+
+  public function uploadImage(Request $request)
+  {
+        //$name = $request->name;
+
+    if($request->hasFile('avatar')){
+        $avatar=$request->file('avatar');
+        $filename = time().'.'.$avatar->getClientOriginalExtention();
+        Image::make($avatar)->resize(300,300)->save(public_path('/uploads/avatar/',$filename));
+
+        $user = Auth::user();
+        $suer->avatar = $filename;
+        $user->save();
+
+    }
+
+    //return view('showUserProfile', ['users' => $user]);
+    return redirect()->back();
+}
+
+
     /**
      * Display the specified resource.
      *
@@ -87,10 +108,10 @@ class UserController extends Controller
         //
         $user = DB::table('users')->where('id',$idd )->first();
         //return view('userView.selectedUser', $user);
-       // return view('userView.selectedUser', ['users' => $user]);
+       // return view('userView.selectedUser', ['users' => $user]) ; auth()->user()->username 
         //
         return view('showUserProfile', ['users' => $user]);
-        //return view('adminDashboard');
+        //return view('adminDashboard');method="POST" action="/userUpload" 
     }
 
     /**
@@ -162,11 +183,11 @@ class UserController extends Controller
             ->update(['votes' => 1]);
             Post::where('id', $post)->update($request->all());
         */
-             DB::table('users')
+            DB::table('users')
             ->where('id', $id)
             ->update(['name' => $request->name]);
 
-    }
+        }
 
     /**
      * Remove the specified resource from storage.

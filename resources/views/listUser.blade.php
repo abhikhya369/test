@@ -204,7 +204,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset("/admin-lte/dist/img/user2-160x160.jpg")}}" class="img-circle elevation-2" alt="User Image">
+          <img src="/uploads/avatar/{{Auth::user()->avatar}}" class="img-circle elevation-2" height="26px" width="34px" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -283,111 +283,111 @@
                     <thead>
                       <tr>
                         <td>ID</td>
-                        <td>Title</td>
-                        <td>Description</td>
-                        <td colspan="2">Action</td>
+                        <td>Name</td>
+                        <td>E-mail</td>
+                        <td colspan="3">Action</td>
                       </tr>
                     </thead>
                     <tbody>
                       @foreach($users as $users)
                       <tr>
                         <td>{{$users->id}}</td>
-                        <td><a href="{{ url('user'.'/'.$users->id)}}">{{$users->name}}</a></td>
-                        <td>{{$users->name}}</td>
+                        {{--<!--<td><a href="{{ url('user'.'/'.$users->id)}}">{{$users->name}}</a></td>-->--}}
+                        <td><a href="{{ url('user'.'/'.Auth::user()->id)}}">{{$users->name}}</a></td>
                         <td>{{$users->email}}</td>
                         <!--<td> <a href="{{ url('user/create')}}">Edit</a></td>-->
                         <td>Edit</td>
                         <td> <a data-toggle="modal" data-target="#modal-default" href=""><input id="{{$users->id}}"type="hidden" name="" value="{{$users->email}}" onclick="myFunction()">Delete</a></td>
                         <td>
-                         
+
                           <form action="user/{{$users->id}}" method="post">
                             {{csrf_field()}}
                             <input name="_method" type="hidden" value="DELETE">
                             <button class="btn btn-danger" type="submit">Delete</button>
                           </form>
                         </td>
-                      @endforeach
-                    </tbody>
-                  </table>
-                  <!-- Model Code -->
-                  <div class="modal fade" id="modal-default">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title"></h4>
+                        @endforeach
+                      </tbody>
+                    </table>
+                    <!-- Model Code -->
+                    <div class="modal fade" id="modal-default">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title"></h4>
+                            </div>
+                            <div class="modal-body">
+                              <h2>Work Is in Progress</h2>
+                              <p>Are You Sure To Delete The User&hellip;</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                              <a href="{{ url('user/delete','$users->email')}}"><button type="button" class="btn btn-primary">Delete <?php echo "$users->email"; ?> </button></a>
+                            </div>
                           </div>
-                          <div class="modal-body">
-                            <h2>Work Is in Progress</h2>
-                            <p>Are You Sure To Delete The User&hellip;</p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <a href="{{ url('user/delete','$users->email')}}"><button type="button" class="btn btn-primary">Delete <?php echo "$users->email"; ?> </button></a>
-                          </div>
+                          <!-- /.modal-content -->
                         </div>
-                        <!-- /.modal-content -->
+                        <!-- /.modal-dialog -->
                       </div>
-                      <!-- /.modal-dialog -->
+                      <!--/.Model Code -->
                     </div>
-                    <!--/.Model Code -->
+                    <!-- /.card-body -->
                   </div>
-                  <!-- /.card-body -->
+                  <!-- /.card -->
                 </div>
-                <!-- /.card -->
+                <!-- /.col -->
               </div>
-              <!-- /.col -->
-            </div>
-            <!-- /.row -->
-          </section>
-          <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-          <div class="float-right d-none d-sm-block">
-            <b>Version</b> 3.0.0-alpha
+              <!-- /.row -->
+            </section>
+            <!-- /.content -->
           </div>
-          <strong>Copyright &copy; 2014-2018 <a href="http://www.forethought.in/">Forethought</a>.</strong> All rights
-          reserved.
-        </footer>
+          <!-- /.content-wrapper -->
+          <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+              <b>Version</b> 3.0.0-alpha
+            </div>
+            <strong>Copyright &copy; 2014-2018 <a href="http://www.forethought.in/">Forethought</a>.</strong> All rights
+            reserved.
+          </footer>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-          <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-      </div>
-      <!-- ./wrapper -->
+          <!-- Control Sidebar -->
+          <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+          </aside>
+          <!-- /.control-sidebar -->
+        </div>
+        <!-- ./wrapper -->
 
-      <!-- jQuery -->
-      <script src="{{asset("/admin-lte/plugins/jquery/jquery.min.js")}}"></script>
-      <!-- Bootstrap 4 -->
-      <script src="{{asset("/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
-      <!-- DataTables -->
-      <script src="{{asset("/admin-lte/plugins/datatables/jquery.dataTables.min.js")}}"></script>
-      <script src="{{asset("/admin-lte/plugins/datatables/dataTables.bootstrap4.min.js")}}"></script>
-      <!-- SlimScroll -->
-      <script src="{{asset("/admin-lte/plugins/slimScroll/jquery.slimscroll.min.js")}}"></script>
-      <!-- FastClick -->
-      <script src="{{asset("/admin-lte/plugins/fastclick/fastclick.js")}}"></script>
-      <!-- AdminLTE App -->
-      <script src="{{asset("/admin-lte/dist/js/adminlte.min.js")}}"></script>
-      <!-- AdminLTE for demo purposes -->
-      <script src="{{asset("/admin-lte/dist/js/demo.js")}}"></script>
-      <!-- page script -->
-      <script>
-        $(function () {
-          $("#example1").DataTable();
-          $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false
+        <!-- jQuery -->
+        <script src="{{asset("/admin-lte/plugins/jquery/jquery.min.js")}}"></script>
+        <!-- Bootstrap 4 -->
+        <script src="{{asset("/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
+        <!-- DataTables -->
+        <script src="{{asset("/admin-lte/plugins/datatables/jquery.dataTables.min.js")}}"></script>
+        <script src="{{asset("/admin-lte/plugins/datatables/dataTables.bootstrap4.min.js")}}"></script>
+        <!-- SlimScroll -->
+        <script src="{{asset("/admin-lte/plugins/slimScroll/jquery.slimscroll.min.js")}}"></script>
+        <!-- FastClick -->
+        <script src="{{asset("/admin-lte/plugins/fastclick/fastclick.js")}}"></script>
+        <!-- AdminLTE App -->
+        <script src="{{asset("/admin-lte/dist/js/adminlte.min.js")}}"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="{{asset("/admin-lte/dist/js/demo.js")}}"></script>
+        <!-- page script -->
+        <script>
+          $(function () {
+            $("#example1").DataTable();
+            $('#example2').DataTable({
+              "paging": true,
+              "lengthChange": false,
+              "searching": false,
+              "ordering": true,
+              "info": true,
+              "autoWidth": false
+            });
           });
-        });
-      </script>
-    </body>
-    </html>
+        </script>
+      </body>
+      </html>
